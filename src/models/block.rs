@@ -1,3 +1,4 @@
+use chrono::Utc;
 use serde::{Deserialize, Serialize};
 use sha256::digest;
 
@@ -12,6 +13,16 @@ pub struct Block {
 }
 
 impl Block {
+    pub fn new(index: u64, previous_hash: String) -> Self {
+        Block {
+            index,
+            timestamp: Utc::now().timestamp_millis() as u64,
+            proof_of_work: u64::default(),
+            previous_hash,
+            hash: String::default(),
+        }
+    }
+
     pub fn calculate_hash(&self) -> String {
         let mut block_data = self.clone();
         block_data.hash = String::default();
