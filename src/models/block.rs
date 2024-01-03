@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use sha256::digest;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Block {
@@ -8,4 +9,15 @@ pub struct Block {
     pub proof_of_work: u64,
     pub previous_hash: String,
     pub hash: String,
+}
+
+impl Block {
+    pub fn calculate_hash(&self) -> String {
+        let mut block_data = self.clone();
+        block_data.hash = String::default();
+
+        let serialized_block_data = serde_json::to_string(&block_data).unwrap();
+
+        digest(serialized_block_data)
+    }
 }
