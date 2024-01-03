@@ -2,6 +2,8 @@ use chrono::Utc;
 use serde::{Deserialize, Serialize};
 use sha256::digest;
 
+use super::blockchain::Blockchain;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Block {
     pub index: u64,     // The index which the block is stored
@@ -30,5 +32,16 @@ impl Block {
         let serialized_block_data = serde_json::to_string(&block_data).unwrap();
 
         digest(serialized_block_data)
+    }
+
+    pub fn mine(&mut self, blockchain: Blockchain) {
+        loop {
+            if !self.hash.starts_with(&"0".repeat(blockchain.difficulty)) {
+                self.proof_of_work += 1;
+                self.hash = self.calculate_hash();
+            } else {
+                break;
+            }
+        }
     }
 }
