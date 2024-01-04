@@ -1,5 +1,7 @@
-mod models;
-use models::Blockchain;
+mod block;
+
+mod blockchain;
+use blockchain::Blockchain;
 
 fn main() {
     let difficulty = 3;
