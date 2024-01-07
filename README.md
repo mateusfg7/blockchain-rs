@@ -6,5 +6,5 @@ This code is a variation from [this post](https://dev.to/ecj222/how-to-build-a-b
 ## to-do
 
 - [x] Initial blockchain and mining
-- [ ] Run thought a CLI front-end
+- [x] Run thought a CLI front-end
 - [ ] Storage persistent blockchain
